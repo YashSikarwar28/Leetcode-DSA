@@ -1,49 +1,46 @@
-import java.util.ArrayList;
-import java.util.List;
+//LeetCode 1545
 
 class Solution {
-    public List<List<Integer>> combinationSum(int[] a, int tar) {
-        List<List<Integer>> ans=new ArrayList<>();
-        combinations(a,tar,0,ans,new ArrayList<>());
-        return ans;
-    }
-    static void combinations(int[] a,int tar,int ind,List<List<Integer>> ans,List<Integer> ds){
-        if(ind==a.length){
-            if(tar==0){
-                ans.add(new ArrayList<>(ds));
-            }
-            return;
+    public char findKthBit(int n, int k) {
+        if(n==1) return '0';
+        int len=(1<<n)-1;
+        k=k-1;
+        if(k<0 || k>=len){
+            return '0';
         }
-        if(a[ind]<=tar){
-            ds.add(a[ind]);
-            combinations(a,tar-a[ind],ind,ans,ds);
-            ds.remove(ds.size()-1);
+        int mid=len/2;
+        if(k==mid){
+            return '1';
         }
-        combinations(a,tar,ind+1,ans,ds);
+        else if(k<mid){
+            return findKthBit(n-1,k+1);
+        }else{
+            char ch=findKthBit(n-1,len-k);
+            return (ch=='0')?'1':'0';
+        }
     }
 }
 
-// import java.util.ArrayList;
-// import java.util.List;
+
 
 // public class p2 {
 //     public static void main(String[] args) {
-//         int[] a={2,3,6,7};
-//         int tar=7;
-//         System.out.println(findCombi(a, tar, 0, null, null););
+//         System.out.println(find("011100110110001", 11));
 //     }
-//     static void findCombi(int[] a,int tar,int ind,List<List<Integer>> ans,List<Integer> ds){
-//         if (ind==a.length) {
-//             if (tar==0) {
-//                 ans.add(new ArrayList<>(ds));
-//             }
-//             return;
+//     static char find(String s,int k){
+//         int n=s.length();
+//         k=k-1;
+//         if (k<0 || k>=n) {
+//             return '0';
 //         }
-//         if(a[ind]<=tar){
-//             ds.add(a[ind]);
-//             findCombi(a, tar-a[ind], ind, ans, ds);
-//             ds.remove(ds.size()-1);
+//         if (k<n/2) {
+//             return s.charAt(k);
 //         }
-//         findCombi(a, tar, ind+1, ans, ds);
+//         else if (k==n/2) {
+//             return '1';
+//         }else{
+//             char ch=s.charAt(n-k-1);
+//             return ch=='0'?'1':'0';
+//         }
 //     }
 // }
